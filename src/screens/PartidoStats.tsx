@@ -108,7 +108,10 @@ export function PartidoStats({
     }
   }
 
-  const titulo = `${partido.rival ?? 'Partido'}${partido.fecha ? ' · ' + partido.fecha : ''}`
+  const titulo =
+    partido.tipo === 'entrenamiento'
+      ? `Entrenamiento${partido.fecha ? ' · ' + partido.fecha : ''}`
+      : `${partido.rival ?? 'Partido'}${partido.fecha ? ' · ' + partido.fecha : ''}`
 
   return (
     <div className="app">

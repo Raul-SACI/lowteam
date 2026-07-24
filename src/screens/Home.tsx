@@ -2,7 +2,7 @@ import { useAuth } from '../auth/AuthContext'
 import { ROL_LABEL } from '../types'
 import { Logo } from '../components/Logo'
 
-type Pantalla = 'home' | 'plantel' | 'partidos' | 'estadisticas'
+type Pantalla = 'home' | 'plantel' | 'partidos' | 'estadisticas' | 'entrenamientos'
 
 export function Home({ irA }: { irA: (p: Pantalla) => void }) {
   const { perfil, session, cerrarSesion } = useAuth()
@@ -37,7 +37,10 @@ export function Home({ irA }: { irA: (p: Pantalla) => void }) {
             Plantel
             <span className="chevron">›</span>
           </button>
-          <div className="menu-item menu-item--proximo">Entrenamientos · próximamente</div>
+          <button className="menu-item" type="button" onClick={() => irA('entrenamientos')}>
+            Entrenamientos
+            <span className="chevron">›</span>
+          </button>
           <button className="menu-item" type="button" onClick={() => irA('partidos')}>
             Partidos
             <span className="chevron">›</span>

@@ -1,53 +1,31 @@
-import { useEffect, useState } from 'react'
-import { supabase } from './lib/supabase'
+import { useState } from 'react'
+import { useAuth } from './auth/AuthContext'
+import { Login } from './screens/Login'
+import { Registro } from './screens/Registro'
+import { Home } from './screens/Home'
 import './App.css'
 
-type Estado = 'probando' | 'ok' | 'error'
-
 function App() {
-  const [estado, setEstado] = useState<Estado>('probando')
-  const [detalle, setDetalle] = useState<string>('')
+  const { session, cargando } = useAuth()
+  const [vista, setVista] = useState<'login' | 'registro'>('login')
 
-  useEffect(() => {
-    // Prueba minima de conexion: pedimos la sesion actual a Supabase.
-    // Si responde (aunque no haya sesion), la conexion funciona.
-    async function probarConexion() {
-      const { error } = await supabase.auth.getSession()
-      if (error) {
-        setEstado('error')
-        setDetalle(error.message)
-      } else {
-        setEstado('ok')
-      }
-    }
-    probarConexion()
-  }, [])
+  if (cargando) {
+    return (
+      <div className="app">
+        <div className="estado estado--probando">Cargando...</div>
+      </div>
+    )
+  }
 
-  return (
-    <div className="app">
-      <header className="header">
-        <div className="logo">LT</div>
-        <h1>Low Team</h1>
-        <p className="subtitulo">Gestion del equipo</p>
-      </header>
+  if (!session) {
+    return vista === 'login' ? (
+      <Login irARegistro={() => setVista('registro')} />
+    ) : (
+      <Registro irALogin={() => setVista('login')} />
+    )
+  }
 
-      <main className="main">
-        <div className={`estado estado--${estado}`}>
-          {estado === 'probando' && 'Probando conexion con Supabase...'}
-          {estado === 'ok' && 'Conexion con Supabase OK'}
-          {estado === 'error' && `Error de conexion: ${detalle}`}
-        </div>
-
-        <p className="nota">
-          Estructura base lista. Las pantallas (plantel, entrenamientos,
-          partidos, estadisticas) y el login con roles se construyen en los
-          proximos pasos.
-        </p>
-      </main>
-
-      <footer className="footer">Low Team - v0.1</footer>
-    </div>
-  )
+  return <Home />
 }
 
 export default App

@@ -14,6 +14,7 @@ export interface Jugador {
   telefono: string | null
   peso: number | null
   altura: number | null
+  email: string | null
   foto_url: string | null
 }
 

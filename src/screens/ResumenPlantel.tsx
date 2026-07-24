@@ -71,6 +71,7 @@ export function ResumenPlantel({
       'Peso (kg)': j.peso ?? '',
       'Altura (cm)': j.altura ?? '',
       Teléfono: j.telefono ?? '',
+      Email: j.email ?? '',
     }))
     const ws = XLSX.utils.json_to_sheet(rows)
     const wb = XLSX.utils.book_new()

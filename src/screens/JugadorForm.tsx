@@ -24,6 +24,7 @@ export function JugadorForm({ jugador, onListo, onCancelar }: Props) {
   const [telefono, setTelefono] = useState(jugador?.telefono ?? '')
   const [peso, setPeso] = useState(jugador?.peso != null ? String(jugador.peso) : '')
   const [altura, setAltura] = useState(jugador?.altura != null ? String(jugador.altura) : '')
+  const [email, setEmail] = useState(jugador?.email ?? '')
   const [archivo, setArchivo] = useState<File | null>(null)
   const [preview, setPreview] = useState<string | null>(jugador?.foto_url ?? null)
 
@@ -55,6 +56,7 @@ export function JugadorForm({ jugador, onListo, onCancelar }: Props) {
         telefono: telefono.trim() || null,
         peso: peso.trim() ? Number(peso) : null,
         altura: altura.trim() ? Number(altura) : null,
+        email: email.trim() || null,
       }
 
       let id = jugador?.id
@@ -249,6 +251,16 @@ export function JugadorForm({ jugador, onListo, onCancelar }: Props) {
               />
             </label>
           </div>
+
+          <label className="campo">
+            <span>Email</span>
+            <input
+              type="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              inputMode="email"
+            />
+          </label>
 
           {error && <div className="error">{error}</div>}
 

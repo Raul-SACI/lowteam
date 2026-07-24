@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import { supabase } from '../lib/supabase'
 import { useAuth } from '../auth/AuthContext'
+import { puedeEditarDeportivo } from '../types'
 import type { Jugador } from '../types'
 import { edadDesde } from '../types'
 import { JugadorForm } from './JugadorForm'
@@ -8,7 +9,7 @@ import { JugadorForm } from './JugadorForm'
 export function Plantel({ volver }: { volver: () => void }) {
   const { perfil } = useAuth()
   const esStaff =
-    perfil?.rol === 'cuerpo_tecnico' || perfil?.rol === 'administracion'
+    puedeEditarDeportivo(perfil?.rol)
 
   const [jugadores, setJugadores] = useState<Jugador[]>([])
   const [cargando, setCargando] = useState(true)

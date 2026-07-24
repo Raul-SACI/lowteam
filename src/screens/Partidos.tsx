@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import { supabase } from '../lib/supabase'
 import { useAuth } from '../auth/AuthContext'
+import { puedeEditarDeportivo } from '../types'
 import type { Evento } from '../types'
 import { PartidoForm } from './PartidoForm'
 import { PartidoStats } from './PartidoStats'
@@ -12,7 +13,7 @@ type Vista =
 
 export function Partidos({ volver }: { volver: () => void }) {
   const { perfil } = useAuth()
-  const esStaff = perfil?.rol === 'cuerpo_tecnico' || perfil?.rol === 'administracion'
+  const esStaff = puedeEditarDeportivo(perfil?.rol)
 
   const [partidos, setPartidos] = useState<Evento[]>([])
   const [cargando, setCargando] = useState(true)

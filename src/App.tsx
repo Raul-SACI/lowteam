@@ -7,9 +7,10 @@ import { Plantel } from './screens/Plantel'
 import { Partidos } from './screens/Partidos'
 import { Estadisticas } from './screens/Estadisticas'
 import { Entrenamientos } from './screens/Entrenamientos'
+import { Usuarios } from './screens/Usuarios'
 import './App.css'
 
-type Pantalla = 'home' | 'plantel' | 'partidos' | 'estadisticas' | 'entrenamientos'
+type Pantalla = 'home' | 'plantel' | 'partidos' | 'estadisticas' | 'entrenamientos' | 'usuarios'
 
 function App() {
   const { session, cargando } = useAuth()
@@ -43,6 +44,9 @@ function App() {
   }
   if (pantalla === 'entrenamientos') {
     return <Entrenamientos volver={() => setPantalla('home')} />
+  }
+  if (pantalla === 'usuarios') {
+    return <Usuarios volver={() => setPantalla('home')} />
   }
   return <Home irA={setPantalla} />
 }

@@ -1,4 +1,4 @@
-export type Rol = 'cuerpo_tecnico' | 'administracion' | 'jugador'
+export type Rol = 'administrador' | 'administracion' | 'cuerpo_tecnico' | 'jugador'
 
 export interface Jugador {
   id: string
@@ -23,9 +23,27 @@ export interface Perfil {
 }
 
 export const ROL_LABEL: Record<Rol, string> = {
-  cuerpo_tecnico: 'Cuerpo Tecnico',
+  administrador: 'Administrador',
   administracion: 'Administracion',
+  cuerpo_tecnico: 'Cuerpo Tecnico',
   jugador: 'Jugador',
+}
+
+export const ROLES: Rol[] = [
+  'administrador',
+  'administracion',
+  'cuerpo_tecnico',
+  'jugador',
+]
+
+// Puede editar lo deportivo (plantel, partidos, entrenamientos, estadisticas)
+export function puedeEditarDeportivo(rol?: Rol | null): boolean {
+  return rol === 'administrador' || rol === 'cuerpo_tecnico'
+}
+
+// Acceso total / gestion de roles
+export function esAdmin(rol?: Rol | null): boolean {
+  return rol === 'administrador'
 }
 
 export const POSICIONES = [

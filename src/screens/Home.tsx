@@ -1,8 +1,8 @@
 import { useAuth } from '../auth/AuthContext'
-import { ROL_LABEL } from '../types'
+import { ROL_LABEL, puedeEditarDeportivo, esAdmin } from '../types'
 import { Logo } from '../components/Logo'
 
-type Pantalla = 'home' | 'plantel' | 'partidos' | 'estadisticas' | 'entrenamientos'
+type Pantalla = 'home' | 'plantel' | 'partidos' | 'estadisticas' | 'entrenamientos' | 'usuarios'
 
 export function Home({ irA }: { irA: (p: Pantalla) => void }) {
   const { perfil, session, cerrarSesion } = useAuth()
@@ -12,7 +12,8 @@ export function Home({ irA }: { irA: (p: Pantalla) => void }) {
     ? `${jugador.nombre} ${jugador.apellido}`.trim()
     : session?.user.email ?? ''
   const rol = perfil?.rol
-  const esStaff = rol === 'cuerpo_tecnico' || rol === 'administracion'
+  const esStaff = puedeEditarDeportivo(rol)
+  const admin = esAdmin(rol)
 
   return (
     <div className="app">
@@ -49,6 +50,12 @@ export function Home({ irA }: { irA: (p: Pantalla) => void }) {
             Estadísticas
             <span className="chevron">›</span>
           </button>
+          {admin && (
+            <button className="menu-item" type="button" onClick={() => irA('usuarios')}>
+              Usuarios
+              <span className="chevron">›</span>
+            </button>
+          )}
         </nav>
 
         <button className="btn btn--secundario" type="button" onClick={cerrarSesion}>

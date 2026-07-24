@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+<rect width="512" height="512" fill="#ffffff"/>
+<path d="M 200.0,32.0 L 210.0,58.2 L 238.0,59.6 L 216.2,77.3 L 223.5,104.4 L 200.0,89.0 L 176.5,104.4 L 183.8,77.3 L 162.0,59.6 L 190.0,58.2 Z" fill="#1e2a8f"/>
+<path d="M 312.0,32.0 L 322.0,58.2 L 350.0,59.6 L 328.2,77.3 L 335.5,104.4 L 312.0,89.0 L 288.5,104.4 L 295.8,77.3 L 274.0,59.6 L 302.0,58.2 Z" fill="#1e2a8f"/>
+<circle cx="256" cy="306" r="196" fill="#ffffff" stroke="#1e2a8f" stroke-width="6"/>
+<circle cx="256" cy="306" r="184" fill="none" stroke="#1e2a8f" stroke-width="4"/>
+<circle cx="256" cy="306" r="126" fill="none" stroke="#1e2a8f" stroke-width="4"/>
+<circle cx="256" cy="306" r="118" fill="#1e2a8f"/>
+<text x="133.1" y="210.0" font-family="DejaVu Sans" font-weight="bold" font-size="34" fill="#1e2a8f" text-anchor="middle" dominant-baseline="central" transform="rotate(308.0 133.1 210.0)">L</text>
+<text x="161.8" y="181.6" font-family="DejaVu Sans" font-weight="bold" font-size="34" fill="#1e2a8f" text-anchor="middle" dominant-baseline="central" transform="rotate(322.9 161.8 181.6)">O</text>
+<text x="196.8" y="161.7" font-family="DejaVu Sans" font-weight="bold" font-size="34" fill="#1e2a8f" text-anchor="middle" dominant-baseline="central" transform="rotate(337.7 196.8 161.7)">W</text>
+<text x="276.2" y="151.3" font-family="DejaVu Sans" font-weight="bold" font-size="34" fill="#1e2a8f" text-anchor="middle" dominant-baseline="central" transform="rotate(367.4 276.2 151.3)">C</text>
+<text x="315.2" y="161.7" font-family="DejaVu Sans" font-weight="bold" font-size="34" fill="#1e2a8f" text-anchor="middle" dominant-baseline="central" transform="rotate(382.3 315.2 161.7)">O</text>
+<text x="350.2" y="181.6" font-family="DejaVu Sans" font-weight="bold" font-size="34" fill="#1e2a8f" text-anchor="middle" dominant-baseline="central" transform="rotate(397.1 350.2 181.6)">S</text>
+<text x="378.9" y="210.0" font-family="DejaVu Sans" font-weight="bold" font-size="34" fill="#1e2a8f" text-anchor="middle" dominant-baseline="central" transform="rotate(412.0 378.9 210.0)">T</text>
+<text x="182.8" y="443.7" font-family="DejaVu Sans" font-weight="bold" font-size="34" fill="#1e2a8f" text-anchor="middle" dominant-baseline="central" transform="rotate(28.0 182.8 443.7)">2</text>
+<text x="230.7" y="459.9" font-family="DejaVu Sans" font-weight="bold" font-size="34" fill="#1e2a8f" text-anchor="middle" dominant-baseline="central" transform="rotate(9.3 230.7 459.9)">0</text>
+<text x="281.3" y="459.9" font-family="DejaVu Sans" font-weight="bold" font-size="34" fill="#1e2a8f" text-anchor="middle" dominant-baseline="central" transform="rotate(-9.3 281.3 459.9)">1</text>
+<text x="329.2" y="443.7" font-family="DejaVu Sans" font-weight="bold" font-size="34" fill="#1e2a8f" text-anchor="middle" dominant-baseline="central" transform="rotate(-28.0 329.2 443.7)">7</text>
+<text x="101.0" y="306.0" font-family="DejaVu Sans" font-weight="bold" font-size="40" fill="#1e2a8f" text-anchor="middle" dominant-baseline="central">F</text>
+<text x="411.0" y="306.0" font-family="DejaVu Sans" font-weight="bold" font-size="40" fill="#1e2a8f" text-anchor="middle" dominant-baseline="central">T</text>
+<g transform="translate(0 -6) translate(256 306) scale(0.82) translate(-256 -306)">
+<circle cx="250" cy="236" r="18" fill="#ffffff"/>
+<path d="M 256.0,258.0 L 268.0,312.0" fill="none" stroke="#ffffff" stroke-width="30" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M 268.0,310.0 L 224.0,304.0 L 206.0,326.0" fill="none" stroke="#ffffff" stroke-width="22" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M 268.0,312.0 L 298.0,348.0 L 316.0,384.0" fill="none" stroke="#ffffff" stroke-width="22" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M 256.0,262.0 L 226.0,256.0 L 206.0,266.0" fill="none" stroke="#ffffff" stroke-width="14" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M 258.0,264.0 L 288.0,250.0 L 306.0,258.0" fill="none" stroke="#ffffff" stroke-width="14" stroke-linecap="round" stroke-linejoin="round"/>
+<circle cx="330" cy="392" r="15" fill="#ffffff"/>
+</g>
+</svg>

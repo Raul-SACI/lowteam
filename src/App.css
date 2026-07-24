@@ -803,3 +803,51 @@
   padding-top: 16px;
   border-top: 1px solid #e5e9ef;
 }
+
+/* ===== Pagos ===== */
+.pago-card {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px;
+  border: 1px solid #e5e9ef;
+  border-radius: 14px;
+  background: #fff;
+  flex-wrap: wrap;
+}
+
+.pago-check {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex: 1;
+  cursor: pointer;
+}
+
+.pago-check input {
+  width: 22px;
+  height: 22px;
+  flex: 0 0 auto;
+}
+
+.pago-fecha {
+  padding: 6px 8px;
+  border: 1px solid #d5dbe3;
+  border-radius: 8px;
+  font-size: 14px;
+}
+
+.estado-pago {
+  display: inline-block;
+  margin-left: 8px;
+  padding: 1px 9px;
+  border-radius: 999px;
+  font-size: 11px;
+  font-weight: 700;
+  vertical-align: middle;
+}
+
+.estado-pago--pagada { background: #e6f6ee; color: #0b6e4f; }
+.estado-pago--atrasada { background: #fdecec; color: #b91c1c; }
+.estado-pago--proxima { background: #fff4e5; color: #b45309; }
+.estado-pago--pendiente { background: #eef2f7; color: #64748b; }

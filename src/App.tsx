@@ -8,9 +8,10 @@ import { Partidos } from './screens/Partidos'
 import { Estadisticas } from './screens/Estadisticas'
 import { Entrenamientos } from './screens/Entrenamientos'
 import { Usuarios } from './screens/Usuarios'
+import { Pagos } from './screens/Pagos'
 import './App.css'
 
-type Pantalla = 'home' | 'plantel' | 'partidos' | 'estadisticas' | 'entrenamientos' | 'usuarios'
+type Pantalla = 'home' | 'plantel' | 'partidos' | 'estadisticas' | 'entrenamientos' | 'usuarios' | 'pagos'
 
 function App() {
   const { session, cargando } = useAuth()
@@ -47,6 +48,9 @@ function App() {
   }
   if (pantalla === 'usuarios') {
     return <Usuarios volver={() => setPantalla('home')} />
+  }
+  if (pantalla === 'pagos') {
+    return <Pagos volver={() => setPantalla('home')} />
   }
   return <Home irA={setPantalla} />
 }

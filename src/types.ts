@@ -161,3 +161,58 @@ export interface EntrenamientoEjercicio {
   orden: number
   ejercicio?: Ejercicio | null
 }
+
+export interface Cuota {
+  id: string
+  concepto: string
+  fecha_vencimiento: string
+  monto: number | null
+}
+
+export interface Pago {
+  id?: string
+  cuota_id: string
+  jugador_id: string
+  pagado: boolean
+  fecha_pago: string | null
+}
+
+export type EstadoPago = 'pagada' | 'atrasada' | 'proxima' | 'pendiente'
+
+export const ESTADO_PAGO_LABEL: Record<EstadoPago, string> = {
+  pagada: 'Pagada',
+  atrasada: 'Atrasada',
+  proxima: 'Próxima a vencer',
+  pendiente: 'Pendiente',
+}
+
+// Puede gestionar pagos (crear cuotas y anotar pagos)
+export function puedeEditarPagos(rol?: Rol | null): boolean {
+  return rol === 'administrador' || rol === 'administracion'
+}
+
+// Dias desde hoy hasta la fecha (positivo = futuro), con fecha local (sin toISOString)
+export function diasHasta(fecha: string): number {
+  const partes = fecha.split('-').map(Number)
+  if (partes.length !== 3) return 0
+  const objetivo = new Date(partes[0], partes[1] - 1, partes[2])
+  const ahora = new Date()
+  const hoy = new Date(ahora.getFullYear(), ahora.getMonth(), ahora.getDate())
+  return Math.round((objetivo.getTime() - hoy.getTime()) / 86400000)
+}
+
+export function estadoCuota(fechaVenc: string, pagado: boolean): EstadoPago {
+  if (pagado) return 'pagada'
+  const dias = diasHasta(fechaVenc)
+  if (dias < 0) return 'atrasada'
+  if (dias <= 7) return 'proxima'
+  return 'pendiente'
+}
+
+// Fecha de hoy en formato YYYY-MM-DD usando componentes locales
+export function hoyLocal(): string {
+  const d = new Date()
+  const mm = String(d.getMonth() + 1).padStart(2, '0')
+  const dd = String(d.getDate()).padStart(2, '0')
+  return `${d.getFullYear()}-${mm}-${dd}`
+}

@@ -105,6 +105,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       email: datos.email,
       password: datos.password,
       options: {
+        emailRedirectTo: window.location.origin,
         data: {
           nombre: datos.nombre,
           apellido: datos.apellido,

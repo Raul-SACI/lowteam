@@ -1,5 +1,6 @@
 import { useAuth } from '../auth/AuthContext'
 import { ROL_LABEL } from '../types'
+import { Logo } from '../components/Logo'
 
 export function Home() {
   const { perfil, session, cerrarSesion } = useAuth()
@@ -14,7 +15,7 @@ export function Home() {
   return (
     <div className="app">
       <header className="header">
-        <div className="logo">LT</div>
+        <Logo />
         <h1>Low Team</h1>
         {rol && <p className="subtitulo">{ROL_LABEL[rol]}</p>}
       </header>

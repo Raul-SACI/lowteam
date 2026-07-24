@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { useAuth } from '../auth/AuthContext'
+import { Logo } from '../components/Logo'
 
 export function Login({ irARegistro }: { irARegistro: () => void }) {
   const { iniciarSesion } = useAuth()
@@ -20,7 +21,7 @@ export function Login({ irARegistro }: { irARegistro: () => void }) {
   return (
     <div className="auth">
       <header className="header">
-        <div className="logo">LT</div>
+        <Logo />
         <h1>Low Team</h1>
         <p className="subtitulo">Ingresar</p>
       </header>

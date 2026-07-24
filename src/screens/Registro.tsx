@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { useAuth } from '../auth/AuthContext'
 import { POSICIONES, TALLES } from '../types'
+import { Logo } from '../components/Logo'
 
 export function Registro({ irALogin }: { irALogin: () => void }) {
   const { registrar } = useAuth()
@@ -46,7 +47,7 @@ export function Registro({ irALogin }: { irALogin: () => void }) {
     return (
       <div className="auth">
         <header className="header">
-          <div className="logo">LT</div>
+          <Logo />
           <h1>Low Team</h1>
         </header>
         <div className="estado estado--ok">
@@ -62,7 +63,7 @@ export function Registro({ irALogin }: { irALogin: () => void }) {
   return (
     <div className="auth">
       <header className="header">
-        <div className="logo">LT</div>
+        <Logo />
         <h1>Low Team</h1>
         <p className="subtitulo">Crear Usuario</p>
       </header>

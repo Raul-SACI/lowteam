@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import { supabase } from '../lib/supabase'
 import type { Evento, Jugador, Estadistica, Asistencia, MetricaKey } from '../types'
-import { ASISTENCIAS, ASISTENCIA_LABEL, METRICAS } from '../types'
+import { ASISTENCIAS, ASISTENCIA_LABEL, ASISTENCIA_CORTO, METRICAS } from '../types'
 
 interface Fila {
   asistencia: Asistencia
@@ -10,8 +10,6 @@ interface Fila {
   minutos: number
   amarillas: number
   rojas: number
-  autogoles: number
-  atajadas: number
 }
 
 function filaVacia(): Fila {
@@ -22,8 +20,6 @@ function filaVacia(): Fila {
     minutos: 0,
     amarillas: 0,
     rojas: 0,
-    autogoles: 0,
-    atajadas: 0,
   }
 }
 
@@ -70,8 +66,6 @@ export function PartidoStats({
               minutos: p.minutos,
               amarillas: p.amarillas,
               rojas: p.rojas,
-              autogoles: p.autogoles,
-              atajadas: p.atajadas,
             }
           : filaVacia()
       })
@@ -187,6 +181,48 @@ export function PartidoStats({
           </button>
         )}
         {okMsg && <div className="estado estado--ok">Estadísticas guardadas ✅</div>}
+
+        {!cargando && jugadores.length > 0 && (
+          <>
+            <h3 className="resumen-titulo">Resumen</h3>
+            <div className="tabla-scroll">
+              <table className="tabla-resumen">
+                <thead>
+                  <tr>
+                    <th className="col-num">#</th>
+                    <th className="col-nom">Jugador</th>
+                    <th>As</th>
+                    {METRICAS.map((m) => (
+                      <th key={m.key} title={m.label}>
+                        {m.corto}
+                      </th>
+                    ))}
+                  </tr>
+                </thead>
+                <tbody>
+                  {jugadores.map((j) => {
+                    const f = filas[j.id]
+                    if (!f) return null
+                    return (
+                      <tr key={j.id}>
+                        <td className="col-num">{j.numero_camiseta ?? ''}</td>
+                        <td className="col-nom">
+                          {j.nombre} {j.apellido}
+                        </td>
+                        <td className={f.asistencia === 'ausente' ? 'celda-aus' : ''}>
+                          {ASISTENCIA_CORTO[f.asistencia]}
+                        </td>
+                        {METRICAS.map((m) => (
+                          <td key={m.key}>{f[m.key] || ''}</td>
+                        ))}
+                      </tr>
+                    )
+                  })}
+                </tbody>
+              </table>
+            </div>
+          </>
+        )}
       </main>
     </div>
   )

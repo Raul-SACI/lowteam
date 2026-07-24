@@ -584,3 +584,65 @@
   background: #f1f5f9;
   color: #64748b;
 }
+
+/* ===== Planilla resumen ===== */
+.resumen-titulo {
+  margin: 20px 0 8px;
+  font-size: 16px;
+}
+
+.tabla-scroll {
+  overflow-x: auto;
+  border: 1px solid #e5e9ef;
+  border-radius: 12px;
+  background: #fff;
+  -webkit-overflow-scrolling: touch;
+}
+
+.tabla-resumen {
+  border-collapse: collapse;
+  width: 100%;
+  font-size: 13px;
+  white-space: nowrap;
+}
+
+.tabla-resumen th,
+.tabla-resumen td {
+  padding: 8px 10px;
+  text-align: center;
+  border-bottom: 1px solid #eef1f5;
+}
+
+.tabla-resumen thead th {
+  background: #f1f5f9;
+  color: #334155;
+  font-weight: 700;
+  position: sticky;
+  top: 0;
+}
+
+.tabla-resumen .col-nom {
+  text-align: left;
+  font-weight: 600;
+  position: sticky;
+  left: 0;
+  background: #fff;
+}
+
+.tabla-resumen thead .col-nom {
+  background: #f1f5f9;
+  z-index: 1;
+}
+
+.tabla-resumen .col-num {
+  color: var(--texto-suave);
+}
+
+.tabla-resumen tbody tr:last-child td {
+  border-bottom: none;
+}
+
+.celda-aus {
+  color: #b91c1c;
+  font-weight: 700;
+}

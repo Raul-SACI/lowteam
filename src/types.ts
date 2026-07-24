@@ -87,8 +87,6 @@ export interface Estadistica {
   minutos: number
   amarillas: number
   rojas: number
-  autogoles: number
-  atajadas: number
 }
 
 export const ASISTENCIA_LABEL: Record<Asistencia, string> = {
@@ -97,6 +95,14 @@ export const ASISTENCIA_LABEL: Record<Asistencia, string> = {
   tarde: 'Llegó tarde',
   justificado: 'Justificado',
   lesionado: 'Lesionado',
+}
+
+export const ASISTENCIA_CORTO: Record<Asistencia, string> = {
+  presente: 'Pre',
+  ausente: 'Aus',
+  tarde: 'Tar',
+  justificado: 'Jus',
+  lesionado: 'Les',
 }
 
 export const ASISTENCIAS: Asistencia[] = [
@@ -113,8 +119,6 @@ export type MetricaKey =
   | 'minutos'
   | 'amarillas'
   | 'rojas'
-  | 'autogoles'
-  | 'atajadas'
 
 // Columnas numericas de estadistica (clave -> etiqueta corta)
 export const METRICAS: { key: MetricaKey; label: string; corto: string }[] = [
@@ -123,6 +127,4 @@ export const METRICAS: { key: MetricaKey; label: string; corto: string }[] = [
   { key: 'minutos', label: 'Minutos', corto: 'Min' },
   { key: 'amarillas', label: 'Amarillas', corto: 'Am' },
   { key: 'rojas', label: 'Rojas', corto: 'Ro' },
-  { key: 'autogoles', label: 'Autogoles', corto: 'AG' },
-  { key: 'atajadas', label: 'Atajadas', corto: 'At' },
 ]

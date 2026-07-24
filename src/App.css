@@ -646,3 +646,48 @@
   color: #b91c1c;
   font-weight: 700;
 }
+
+/* ===== Segmento (filtro) ===== */
+.segmento {
+  display: flex;
+  gap: 4px;
+  background: #eef2f7;
+  padding: 4px;
+  border-radius: 12px;
+}
+
+.segmento button {
+  flex: 1;
+  padding: 10px;
+  border: none;
+  border-radius: 9px;
+  background: none;
+  color: var(--texto-suave);
+  font-weight: 700;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.segmento .seg-activo {
+  background: #fff;
+  color: var(--verde);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.dorsal-mini {
+  display: inline-block;
+  min-width: 20px;
+  text-align: center;
+  margin-right: 6px;
+  padding: 0 4px;
+  border-radius: 5px;
+  background: var(--verde);
+  color: #fff;
+  font-size: 11px;
+  font-weight: 700;
+}
+
+.celda-destacada {
+  font-weight: 800;
+  color: var(--verde);
+}

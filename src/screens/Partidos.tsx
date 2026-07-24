@@ -5,11 +5,13 @@ import { puedeEditarDeportivo } from '../types'
 import type { Evento } from '../types'
 import { PartidoForm } from './PartidoForm'
 import { PartidoStats } from './PartidoStats'
+import { ArmarEquipo } from './ArmarEquipo'
 
 type Vista =
   | { t: 'lista' }
   | { t: 'form'; partido: Evento | null }
   | { t: 'stats'; partido: Evento }
+  | { t: 'formacion'; partido: Evento }
 
 export function Partidos({ volver }: { volver: () => void }) {
   const { rolEfectivo } = useAuth()
@@ -53,6 +55,15 @@ export function Partidos({ volver }: { volver: () => void }) {
   if (vista.t === 'stats') {
     return (
       <PartidoStats
+        partido={vista.partido}
+        esStaff={esStaff}
+        onVolver={() => setVista({ t: 'lista' })}
+      />
+    )
+  }
+  if (vista.t === 'formacion') {
+    return (
+      <ArmarEquipo
         partido={vista.partido}
         esStaff={esStaff}
         onVolver={() => setVista({ t: 'lista' })}
@@ -109,15 +120,24 @@ export function Partidos({ volver }: { volver: () => void }) {
                     {hayResultado ? `${p.goles_favor} - ${p.goles_contra}` : '–'}
                   </div>
                 </button>
-                {esStaff && (
+                <div className="partido-acciones">
+                  {esStaff && (
+                    <button
+                      className="partido-editar"
+                      type="button"
+                      onClick={() => setVista({ t: 'form', partido: p })}
+                    >
+                      ✎ Editar
+                    </button>
+                  )}
                   <button
                     className="partido-editar"
                     type="button"
-                    onClick={() => setVista({ t: 'form', partido: p })}
+                    onClick={() => setVista({ t: 'formacion', partido: p })}
                   >
-                    ✎ Editar
+                    ⚽ Formación
                   </button>
-                )}
+                </div>
               </div>
             )
           })}

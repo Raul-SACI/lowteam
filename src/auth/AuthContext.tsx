@@ -34,6 +34,7 @@ interface AuthContextValue {
   iniciarSesion: (email: string, password: string) => Promise<string | null>
   registrar: (datos: DatosRegistro, selfie?: File | null) => Promise<string | null>
   cerrarSesion: () => Promise<void>
+  recargarPerfil: () => Promise<void>
   // Vista previa de rol (solo Administrador)
   vistaComo: Rol | null
   setVistaComo: (rol: Rol | null) => void
@@ -159,6 +160,10 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     await supabase.auth.signOut()
   }
 
+  async function recargarPerfil() {
+    if (session) await cargarPerfil(session.user.id)
+  }
+
   const esAdminReal = esAdmin(perfil?.rol)
   const rolEfectivo = esAdminReal ? vistaComo ?? perfil?.rol : perfil?.rol
 
@@ -171,6 +176,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         iniciarSesion,
         registrar,
         cerrarSesion,
+        recargarPerfil,
         vistaComo: esAdminReal ? vistaComo : null,
         setVistaComo,
         rolEfectivo,

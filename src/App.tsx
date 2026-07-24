@@ -10,6 +10,7 @@ import { Estadisticas } from './screens/Estadisticas'
 import { Entrenamientos } from './screens/Entrenamientos'
 import { Usuarios } from './screens/Usuarios'
 import { Pagos } from './screens/Pagos'
+import { MiFoto } from './screens/MiFoto'
 import './App.css'
 
 type Pantalla =
@@ -20,6 +21,7 @@ type Pantalla =
   | 'entrenamientos'
   | 'usuarios'
   | 'pagos'
+  | 'mifoto'
 
 function App() {
   const { session, cargando, vistaComo, setVistaComo } = useAuth()
@@ -50,6 +52,7 @@ function App() {
   else if (pantalla === 'entrenamientos') contenido = <Entrenamientos volver={volverHome} />
   else if (pantalla === 'usuarios') contenido = <Usuarios volver={volverHome} />
   else if (pantalla === 'pagos') contenido = <Pagos volver={volverHome} />
+  else if (pantalla === 'mifoto') contenido = <MiFoto volver={volverHome} />
   else contenido = <Home irA={setPantalla} />
 
   return (

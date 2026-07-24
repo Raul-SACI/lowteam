@@ -11,6 +11,7 @@ type Pantalla =
   | 'entrenamientos'
   | 'usuarios'
   | 'pagos'
+  | 'mifoto'
 
 const ROLES_PREVIEW: Rol[] = ['jugador', 'administracion', 'cuerpo_tecnico']
 
@@ -90,6 +91,10 @@ export function Home({ irA }: { irA: (p: Pantalla) => void }) {
             </button>
           )}
         </nav>
+
+        <button className="btn btn--secundario" type="button" onClick={() => irA('mifoto')}>
+          📷 Mi foto
+        </button>
 
         <button className="btn btn--secundario" type="button" onClick={cerrarSesion}>
           Cerrar sesión

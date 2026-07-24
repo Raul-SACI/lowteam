@@ -1232,3 +1232,9 @@
 .tile--saldo {
   margin-top: 10px;
 }
+
+.foto-preview--grande {
+  width: 130px;
+  height: 130px;
+  font-size: 44px;
+}

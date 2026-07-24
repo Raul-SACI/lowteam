@@ -60,3 +60,69 @@ export function edadDesde(fecha: string | null): number | null {
   if (!cumpleEsteAnio) edad -= 1
   return edad >= 0 && edad < 120 ? edad : null
 }
+
+export type TipoEvento = 'partido' | 'entrenamiento'
+export type Asistencia = 'presente' | 'ausente' | 'tarde' | 'justificado' | 'lesionado'
+
+export interface Evento {
+  id: string
+  tipo: TipoEvento
+  fecha: string | null
+  hora: string | null
+  rival: string | null
+  condicion: 'local' | 'visitante' | null
+  es_oficial: boolean
+  goles_favor: number | null
+  goles_contra: number | null
+  nota: string | null
+}
+
+export interface Estadistica {
+  id?: string
+  evento_id: string
+  jugador_id: string
+  asistencia: Asistencia
+  goles: number
+  asistencias: number
+  minutos: number
+  amarillas: number
+  rojas: number
+  autogoles: number
+  atajadas: number
+}
+
+export const ASISTENCIA_LABEL: Record<Asistencia, string> = {
+  presente: 'Presente',
+  ausente: 'Ausente',
+  tarde: 'Llegó tarde',
+  justificado: 'Justificado',
+  lesionado: 'Lesionado',
+}
+
+export const ASISTENCIAS: Asistencia[] = [
+  'presente',
+  'ausente',
+  'tarde',
+  'justificado',
+  'lesionado',
+]
+
+export type MetricaKey =
+  | 'goles'
+  | 'asistencias'
+  | 'minutos'
+  | 'amarillas'
+  | 'rojas'
+  | 'autogoles'
+  | 'atajadas'
+
+// Columnas numericas de estadistica (clave -> etiqueta corta)
+export const METRICAS: { key: MetricaKey; label: string; corto: string }[] = [
+  { key: 'goles', label: 'Goles', corto: 'G' },
+  { key: 'asistencias', label: 'Asistencias', corto: 'A' },
+  { key: 'minutos', label: 'Minutos', corto: 'Min' },
+  { key: 'amarillas', label: 'Amarillas', corto: 'Am' },
+  { key: 'rojas', label: 'Rojas', corto: 'Ro' },
+  { key: 'autogoles', label: 'Autogoles', corto: 'AG' },
+  { key: 'atajadas', label: 'Atajadas', corto: 'At' },
+]

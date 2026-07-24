@@ -4,9 +4,10 @@ import { Login } from './screens/Login'
 import { Registro } from './screens/Registro'
 import { Home } from './screens/Home'
 import { Plantel } from './screens/Plantel'
+import { Partidos } from './screens/Partidos'
 import './App.css'
 
-type Pantalla = 'home' | 'plantel'
+type Pantalla = 'home' | 'plantel' | 'partidos'
 
 function App() {
   const { session, cargando } = useAuth()
@@ -31,6 +32,9 @@ function App() {
 
   if (pantalla === 'plantel') {
     return <Plantel volver={() => setPantalla('home')} />
+  }
+  if (pantalla === 'partidos') {
+    return <Partidos volver={() => setPantalla('home')} />
   }
   return <Home irA={setPantalla} />
 }

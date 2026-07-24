@@ -461,3 +461,126 @@
   font-size: 13px;
   margin-top: -6px;
 }
+
+/* ===== Partidos ===== */
+.partido-card {
+  border: 1px solid #e5e9ef;
+  border-radius: 14px;
+  background: #fff;
+  overflow: hidden;
+}
+
+.partido-main {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+  padding: 12px;
+  background: none;
+  border: none;
+  text-align: left;
+  cursor: pointer;
+}
+
+.partido-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.partido-resultado {
+  font-weight: 800;
+  font-size: 20px;
+  color: var(--verde);
+  white-space: nowrap;
+}
+
+.partido-editar {
+  width: 100%;
+  border: none;
+  border-top: 1px solid #eef1f5;
+  background: #f8fafc;
+  color: var(--texto-suave);
+  font-weight: 600;
+  font-size: 13px;
+  padding: 8px;
+  cursor: pointer;
+}
+
+.tag {
+  display: inline-block;
+  margin-left: 8px;
+  padding: 1px 8px;
+  border-radius: 999px;
+  font-size: 11px;
+  font-weight: 700;
+  vertical-align: middle;
+}
+
+.tag--of { background: #e6f6ee; color: #0b6e4f; }
+.tag--am { background: #eef2f7; color: #64748b; }
+
+/* ===== Carga de estadísticas ===== */
+.stats-lista {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.stat-card {
+  border: 1px solid #e5e9ef;
+  border-radius: 12px;
+  background: #fff;
+  padding: 10px 12px;
+}
+
+.stat-nombre {
+  font-weight: 700;
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 8px;
+}
+
+.stat-asist {
+  width: 100%;
+  padding: 8px 10px;
+  border: 1px solid #d5dbe3;
+  border-radius: 8px;
+  font-size: 15px;
+  background: #fff;
+  margin-bottom: 8px;
+}
+
+.stat-metricas {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 6px;
+}
+
+.stat-num {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+}
+
+.stat-num span {
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--texto-suave);
+}
+
+.stat-num input {
+  width: 100%;
+  padding: 6px 2px;
+  text-align: center;
+  border: 1px solid #d5dbe3;
+  border-radius: 8px;
+  font-size: 15px;
+}
+
+.stat-num input:disabled {
+  background: #f1f5f9;
+  color: #64748b;
+}

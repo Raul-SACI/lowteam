@@ -6,6 +6,7 @@ import type { Jugador } from '../types'
 import { edadDesde } from '../types'
 import { JugadorForm } from './JugadorForm'
 import { ResumenPlantel } from './ResumenPlantel'
+import { staffJugadorIds } from '../lib/plantel'
 
 export function Plantel({ volver }: { volver: () => void }) {
   const { rolEfectivo } = useAuth()
@@ -21,14 +22,17 @@ export function Plantel({ volver }: { volver: () => void }) {
   async function cargar() {
     setCargando(true)
     setError(null)
-    const { data, error } = await supabase
-      .from('jugadores')
-      .select('*')
-      .order('numero_camiseta', { ascending: true, nullsFirst: false })
-      .order('apellido', { ascending: true })
-      .range(0, 999)
-    if (error) setError(error.message)
-    else setJugadores((data as Jugador[]) ?? [])
+    const [jr, staff] = await Promise.all([
+      supabase
+        .from('jugadores')
+        .select('*')
+        .order('numero_camiseta', { ascending: true, nullsFirst: false })
+        .order('apellido', { ascending: true })
+        .range(0, 999),
+      staffJugadorIds(),
+    ])
+    if (jr.error) setError(jr.error.message)
+    else setJugadores(((jr.data as Jugador[]) ?? []).filter((j) => !staff.has(j.id)))
     setCargando(false)
   }
 

@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useState } from 'react'
 import { supabase } from '../lib/supabase'
 import type { Jugador } from '../types'
+import { staffJugadorIds } from '../lib/plantel'
 
 type Filtro = 'oficiales' | 'todos'
 
@@ -36,7 +37,7 @@ export function Estadisticas({ volver }: { volver: () => void }) {
     async function cargar() {
       setCargando(true)
       setError(null)
-      const [jr, sr] = await Promise.all([
+      const [jr, sr, staff] = await Promise.all([
         supabase
           .from('jugadores')
           .select('*')
@@ -48,10 +49,11 @@ export function Estadisticas({ volver }: { volver: () => void }) {
             'jugador_id, asistencia, goles, asistencias, minutos, amarillas, rojas, evento:eventos(tipo, es_oficial)'
           )
           .range(0, 999),
+        staffJugadorIds(),
       ])
       if (jr.error) setError(jr.error.message)
       if (sr.error) setError(sr.error.message)
-      setJugadores((jr.data as Jugador[]) ?? [])
+      setJugadores(((jr.data as Jugador[]) ?? []).filter((j) => !staff.has(j.id)))
       setStats((sr.data as unknown as StatRow[]) ?? [])
       setCargando(false)
     }

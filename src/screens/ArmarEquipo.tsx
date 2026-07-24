@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react'
 import { supabase } from '../lib/supabase'
 import type { Evento, Jugador } from '../types'
+import { staffJugadorIds } from '../lib/plantel'
 
 interface Pos {
   x: number
@@ -43,7 +44,7 @@ export function ArmarEquipo({
   async function cargar() {
     setCargando(true)
     setError(null)
-    const [jr, ar] = await Promise.all([
+    const [jr, ar, staff] = await Promise.all([
       supabase
         .from('jugadores')
         .select('*')
@@ -51,9 +52,10 @@ export function ArmarEquipo({
         .order('apellido', { ascending: true })
         .range(0, 999),
       supabase.from('alineacion').select('*').eq('evento_id', partido.id).range(0, 999),
+      staffJugadorIds(),
     ])
     if (jr.error) setError(jr.error.message)
-    setJugadores((jr.data as Jugador[]) ?? [])
+    setJugadores(((jr.data as Jugador[]) ?? []).filter((j) => !staff.has(j.id)))
     const map: Record<string, Pos> = {}
     ;((ar.data as { jugador_id: string; x: number; y: number }[]) ?? []).forEach((a) => {
       map[a.jugador_id] = { x: Number(a.x), y: Number(a.y) }

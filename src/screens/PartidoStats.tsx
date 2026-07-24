@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react'
 import { supabase } from '../lib/supabase'
 import type { Evento, Jugador, Estadistica, Asistencia, MetricaKey } from '../types'
 import { ASISTENCIAS, ASISTENCIA_LABEL, ASISTENCIA_CORTO, METRICAS } from '../types'
+import { staffJugadorIds } from '../lib/plantel'
 
 interface Fila {
   asistencia: Asistencia
@@ -42,7 +43,7 @@ export function PartidoStats({
   useEffect(() => {
     async function cargar() {
       setCargando(true)
-      const [jr, er] = await Promise.all([
+      const [jr, er, staff] = await Promise.all([
         supabase
           .from('jugadores')
           .select('*')
@@ -50,9 +51,10 @@ export function PartidoStats({
           .order('apellido', { ascending: true })
           .range(0, 999),
         supabase.from('estadisticas').select('*').eq('evento_id', partido.id).range(0, 999),
+        staffJugadorIds(),
       ])
       if (jr.error) setError(jr.error.message)
-      const js = (jr.data as Jugador[]) ?? []
+      const js = ((jr.data as Jugador[]) ?? []).filter((j) => !staff.has(j.id))
       setJugadores(js)
       const previas = (er.data as Estadistica[]) ?? []
       const map: Record<string, Fila> = {}

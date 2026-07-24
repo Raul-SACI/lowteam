@@ -146,3 +146,18 @@ export const METRICAS: { key: MetricaKey; label: string; corto: string }[] = [
   { key: 'amarillas', label: 'Amarillas', corto: 'Am' },
   { key: 'rojas', label: 'Rojas', corto: 'Ro' },
 ]
+
+export interface Ejercicio {
+  id: string
+  nombre: string
+  descripcion: string | null
+}
+
+export interface EntrenamientoEjercicio {
+  id: string
+  evento_id: string
+  ejercicio_id: string
+  duracion_min: number | null
+  orden: number
+  ejercicio?: Ejercicio | null
+}

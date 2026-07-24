@@ -1,15 +1,19 @@
 import { useEffect, useState } from 'react'
 import { supabase } from '../lib/supabase'
 import { useAuth } from '../auth/AuthContext'
-import { puedeEditarDeportivo } from '../types'
 import type { Evento } from '../types'
+import { puedeEditarDeportivo } from '../types'
 import { EntrenamientoForm } from './EntrenamientoForm'
+import { EntrenamientoDetalle } from './EntrenamientoDetalle'
 import { PartidoStats } from './PartidoStats'
+import { Biblioteca } from './Biblioteca'
 
 type Vista =
   | { t: 'lista' }
   | { t: 'form'; ent: Evento | null }
+  | { t: 'detalle'; ent: Evento }
   | { t: 'stats'; ent: Evento }
+  | { t: 'biblioteca' }
 
 export function Entrenamientos({ volver }: { volver: () => void }) {
   const { perfil } = useAuth()
@@ -38,6 +42,9 @@ export function Entrenamientos({ volver }: { volver: () => void }) {
     cargar()
   }, [])
 
+  if (vista.t === 'biblioteca') {
+    return <Biblioteca volver={() => setVista({ t: 'lista' })} />
+  }
   if (vista.t === 'form') {
     return (
       <EntrenamientoForm
@@ -50,12 +57,23 @@ export function Entrenamientos({ volver }: { volver: () => void }) {
       />
     )
   }
+  if (vista.t === 'detalle') {
+    return (
+      <EntrenamientoDetalle
+        ent={vista.ent}
+        esStaff={esStaff}
+        onVolver={() => setVista({ t: 'lista' })}
+        onEditar={() => setVista({ t: 'form', ent: vista.ent })}
+        onCargarStats={() => setVista({ t: 'stats', ent: vista.ent })}
+      />
+    )
+  }
   if (vista.t === 'stats') {
     return (
       <PartidoStats
         partido={vista.ent}
         esStaff={esStaff}
-        onVolver={() => setVista({ t: 'lista' })}
+        onVolver={() => setVista({ t: 'detalle', ent: vista.ent })}
       />
     )
   }
@@ -72,9 +90,14 @@ export function Entrenamientos({ volver }: { volver: () => void }) {
 
       <main className="main">
         {esStaff && (
-          <button className="btn" type="button" onClick={() => setVista({ t: 'form', ent: null })}>
-            + Nuevo entrenamiento
-          </button>
+          <div className="botones-fila">
+            <button className="btn" type="button" onClick={() => setVista({ t: 'form', ent: null })}>
+              + Nuevo
+            </button>
+            <button className="btn btn--secundario" type="button" onClick={() => setVista({ t: 'biblioteca' })}>
+              Ejercicios
+            </button>
+          </div>
         )}
 
         {cargando && <div className="estado estado--probando">Cargando...</div>}
@@ -85,31 +108,21 @@ export function Entrenamientos({ volver }: { volver: () => void }) {
 
         <div className="lista-jugadores">
           {ents.map((e) => (
-            <div className="partido-card" key={e.id}>
-              <button
-                className="partido-main"
-                type="button"
-                onClick={() => setVista({ t: 'stats', ent: e })}
-              >
-                <div className="partido-info">
-                  <div className="jugador-nombre">
-                    {e.fecha ?? 'Sin fecha'}
-                    {e.hora ? <span className="jugador-sub"> · {e.hora.slice(0, 5)}</span> : null}
-                  </div>
-                  <div className="jugador-sub">{e.nota ?? 'Entrenamiento'}</div>
+            <button
+              className="jugador-card"
+              type="button"
+              key={e.id}
+              onClick={() => setVista({ t: 'detalle', ent: e })}
+            >
+              <div className="jugador-datos">
+                <div className="jugador-nombre">
+                  {e.fecha ?? 'Sin fecha'}
+                  {e.hora ? ` · ${e.hora.slice(0, 5)}` : ''}
                 </div>
-                <span className="chevron">›</span>
-              </button>
-              {esStaff && (
-                <button
-                  className="partido-editar"
-                  type="button"
-                  onClick={() => setVista({ t: 'form', ent: e })}
-                >
-                  ✎ Editar
-                </button>
-              )}
-            </div>
+                <div className="jugador-sub">{e.nota ?? 'Entrenamiento'}</div>
+              </div>
+              <span className="chevron">›</span>
+            </button>
           ))}
         </div>
       </main>

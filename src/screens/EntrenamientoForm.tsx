@@ -14,6 +14,7 @@ export function EntrenamientoForm({ entrenamiento, onListo, onCancelar }: Props)
   const [nota, setNota] = useState(entrenamiento?.nota ?? '')
   const [guardando, setGuardando] = useState(false)
   const [error, setError] = useState<string | null>(null)
+  const [confirmarBaja, setConfirmarBaja] = useState(false)
 
   async function guardar(e: React.FormEvent) {
     e.preventDefault()
@@ -33,6 +34,22 @@ export function EntrenamientoForm({ entrenamiento, onListo, onCancelar }: Props)
       setError(
         error.message.toLowerCase().includes('row-level security')
           ? 'No tenés permiso (solo el staff puede editar).'
+          : error.message
+      )
+    } else {
+      onListo()
+    }
+  }
+
+  async function eliminar() {
+    setGuardando(true)
+    setError(null)
+    const { error } = await supabase.from('eventos').delete().eq('id', entrenamiento!.id)
+    setGuardando(false)
+    if (error) {
+      setError(
+        error.message.toLowerCase().includes('row-level security')
+          ? 'No tenés permiso (solo el staff puede eliminar).'
           : error.message
       )
     } else {
@@ -73,6 +90,40 @@ export function EntrenamientoForm({ entrenamiento, onListo, onCancelar }: Props)
           <button className="btn" type="submit" disabled={guardando}>
             {guardando ? 'Guardando...' : 'Guardar'}
           </button>
+
+          {entrenamiento &&
+            (confirmarBaja ? (
+              <div className="baja-confirm">
+                <p>¿Seguro que querés eliminar este entrenamiento? Se borran también sus ejercicios y métricas cargadas.</p>
+                <div className="fila-2">
+                  <button
+                    type="button"
+                    className="btn btn--secundario"
+                    onClick={() => setConfirmarBaja(false)}
+                    disabled={guardando}
+                  >
+                    No
+                  </button>
+                  <button
+                    type="button"
+                    className="btn btn--peligro"
+                    onClick={eliminar}
+                    disabled={guardando}
+                  >
+                    Sí, eliminar
+                  </button>
+                </div>
+              </div>
+            ) : (
+              <button
+                type="button"
+                className="btn btn--peligro-suave"
+                onClick={() => setConfirmarBaja(true)}
+                disabled={guardando}
+              >
+                Eliminar entrenamiento
+              </button>
+            ))}
         </form>
       </main>
     </div>

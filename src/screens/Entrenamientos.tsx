@@ -7,6 +7,7 @@ import { EntrenamientoForm } from './EntrenamientoForm'
 import { EntrenamientoDetalle } from './EntrenamientoDetalle'
 import { PartidoStats } from './PartidoStats'
 import { Biblioteca } from './Biblioteca'
+import { Calendario } from './Calendario'
 
 type Vista =
   | { t: 'lista' }
@@ -23,6 +24,7 @@ export function Entrenamientos({ volver }: { volver: () => void }) {
   const [cargando, setCargando] = useState(true)
   const [error, setError] = useState<string | null>(null)
   const [vista, setVista] = useState<Vista>({ t: 'lista' })
+  const [modo, setModo] = useState<'lista' | 'calendario'>('lista')
 
   async function cargar() {
     setCargando(true)
@@ -100,31 +102,55 @@ export function Entrenamientos({ volver }: { volver: () => void }) {
           </div>
         )}
 
+        <div className="segmento">
+          <button
+            className={modo === 'lista' ? 'seg-activo' : ''}
+            type="button"
+            onClick={() => setModo('lista')}
+          >
+            Lista
+          </button>
+          <button
+            className={modo === 'calendario' ? 'seg-activo' : ''}
+            type="button"
+            onClick={() => setModo('calendario')}
+          >
+            Calendario
+          </button>
+        </div>
+
         {cargando && <div className="estado estado--probando">Cargando...</div>}
         {error && <div className="error">{error}</div>}
         {!cargando && !error && ents.length === 0 && (
           <p className="nota">Todavía no hay entrenamientos cargados.</p>
         )}
 
-        <div className="lista-jugadores">
-          {ents.map((e) => (
-            <button
-              className="jugador-card"
-              type="button"
-              key={e.id}
-              onClick={() => setVista({ t: 'detalle', ent: e })}
-            >
-              <div className="jugador-datos">
-                <div className="jugador-nombre">
-                  {e.fecha ?? 'Sin fecha'}
-                  {e.hora ? ` · ${e.hora.slice(0, 5)}` : ''}
+        {modo === 'calendario' ? (
+          <Calendario
+            entrenamientos={ents}
+            onSelect={(e) => setVista({ t: 'detalle', ent: e })}
+          />
+        ) : (
+          <div className="lista-jugadores">
+            {ents.map((e) => (
+              <button
+                className="jugador-card"
+                type="button"
+                key={e.id}
+                onClick={() => setVista({ t: 'detalle', ent: e })}
+              >
+                <div className="jugador-datos">
+                  <div className="jugador-nombre">
+                    {e.fecha ?? 'Sin fecha'}
+                    {e.hora ? ` · ${e.hora.slice(0, 5)}` : ''}
+                  </div>
+                  <div className="jugador-sub">{e.nota ?? 'Entrenamiento'}</div>
                 </div>
-                <div className="jugador-sub">{e.nota ?? 'Entrenamiento'}</div>
-              </div>
-              <span className="chevron">›</span>
-            </button>
-          ))}
-        </div>
+                <span className="chevron">›</span>
+              </button>
+            ))}
+          </div>
+        )}
       </main>
     </div>
   )

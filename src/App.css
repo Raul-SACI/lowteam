@@ -851,3 +851,91 @@
 .estado-pago--atrasada { background: #fdecec; color: #b91c1c; }
 .estado-pago--proxima { background: #fff4e5; color: #b45309; }
 .estado-pago--pendiente { background: #eef2f7; color: #64748b; }
+
+/* ===== Calendario ===== */
+.calendario {
+  background: #fff;
+  border: 1px solid #e5e9ef;
+  border-radius: 14px;
+  padding: 12px;
+}
+
+.cal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+
+.cal-titulo {
+  font-weight: 700;
+  font-size: 16px;
+}
+
+.cal-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 4px;
+}
+
+.cal-dia-nombre {
+  text-align: center;
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--texto-suave);
+  padding: 4px 0;
+}
+
+.cal-celda {
+  position: relative;
+  aspect-ratio: 1;
+  border: none;
+  border-radius: 9px;
+  background: #f8fafc;
+  color: var(--texto);
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.cal-celda--vacia {
+  background: transparent;
+  cursor: default;
+}
+
+.cal-celda--con {
+  background: #e6f6ee;
+  color: var(--verde-oscuro);
+}
+
+.cal-celda--hoy {
+  outline: 2px solid var(--verde);
+  outline-offset: -2px;
+}
+
+.cal-celda--sel {
+  background: var(--verde);
+  color: #fff;
+}
+
+.cal-punto {
+  position: absolute;
+  bottom: 5px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--verde);
+}
+
+.cal-celda--sel .cal-punto {
+  background: #fff;
+}
+
+.cal-detalle {
+  margin-top: 12px;
+}

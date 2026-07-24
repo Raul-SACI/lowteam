@@ -1219,3 +1219,16 @@
   font-size: 20px;
   font-weight: 800;
 }
+
+/* ===== Gastos / resumen financiero ===== */
+.gasto-monto {
+  font-weight: 700;
+  color: #b91c1c;
+  white-space: nowrap;
+  margin-left: auto;
+  padding-left: 8px;
+}
+
+.tile--saldo {
+  margin-top: 10px;
+}

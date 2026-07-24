@@ -3,8 +3,11 @@ import { supabase } from '../lib/supabase'
 import type { Cuota } from '../types'
 import { estadoCuota, ESTADO_PAGO_LABEL } from '../types'
 import { PagosCuota } from './PagosCuota'
+import { PagosGastos } from './PagosGastos'
+import { PagosResumen } from './PagosResumen'
 
 type Vista = { t: 'lista' } | { t: 'form' } | { t: 'cuota'; cuota: Cuota }
+type Tab = 'cuotas' | 'gastos' | 'resumen'
 
 export function PagosAdmin({ volver }: { volver: () => void }) {
   const [cuotas, setCuotas] = useState<Cuota[]>([])
@@ -13,6 +16,7 @@ export function PagosAdmin({ volver }: { volver: () => void }) {
   const [cargando, setCargando] = useState(true)
   const [error, setError] = useState<string | null>(null)
   const [vista, setVista] = useState<Vista>({ t: 'lista' })
+  const [tab, setTab] = useState<Tab>('cuotas')
 
   // form nueva cuota
   const [concepto, setConcepto] = useState('')
@@ -131,41 +135,60 @@ export function PagosAdmin({ volver }: { volver: () => void }) {
       </header>
 
       <main className="main">
-        <button className="btn" type="button" onClick={() => setVista({ t: 'form' })}>
-          + Nueva cuota
-        </button>
-
-        {cargando && <div className="estado estado--probando">Cargando...</div>}
-        {error && <div className="error">{error}</div>}
-        {!cargando && !error && cuotas.length === 0 && (
-          <p className="nota">Todavía no hay cuotas cargadas.</p>
-        )}
-
-        <div className="lista-jugadores">
-          {cuotas.map((c) => {
-            const est = estadoCuota(c.fecha_vencimiento, false)
-            return (
-              <button
-                className="jugador-card"
-                type="button"
-                key={c.id}
-                onClick={() => setVista({ t: 'cuota', cuota: c })}
-              >
-                <div className="jugador-datos">
-                  <div className="jugador-nombre">
-                    {c.concepto}
-                    {c.monto != null && <span className="tag tag--am">${c.monto}</span>}
-                  </div>
-                  <div className="jugador-sub">
-                    Vence {c.fecha_vencimiento} · Pagaron {conteo[c.id] ?? 0}/{totalJug}
-                    <span className={`estado-pago estado-pago--${est}`}>{ESTADO_PAGO_LABEL[est]}</span>
-                  </div>
-                </div>
-                <span className="chevron">›</span>
-              </button>
-            )
-          })}
+        <div className="segmento">
+          <button className={tab === 'cuotas' ? 'seg-activo' : ''} type="button" onClick={() => setTab('cuotas')}>
+            Cuotas
+          </button>
+          <button className={tab === 'gastos' ? 'seg-activo' : ''} type="button" onClick={() => setTab('gastos')}>
+            Gastos
+          </button>
+          <button className={tab === 'resumen' ? 'seg-activo' : ''} type="button" onClick={() => setTab('resumen')}>
+            Resumen
+          </button>
         </div>
+
+        {tab === 'gastos' && <PagosGastos />}
+        {tab === 'resumen' && <PagosResumen />}
+
+        {tab === 'cuotas' && (
+          <>
+            <button className="btn" type="button" onClick={() => setVista({ t: 'form' })}>
+              + Nueva cuota
+            </button>
+
+            {cargando && <div className="estado estado--probando">Cargando...</div>}
+            {error && <div className="error">{error}</div>}
+            {!cargando && !error && cuotas.length === 0 && (
+              <p className="nota">Todavía no hay cuotas cargadas.</p>
+            )}
+
+            <div className="lista-jugadores">
+              {cuotas.map((c) => {
+                const est = estadoCuota(c.fecha_vencimiento, false)
+                return (
+                  <button
+                    className="jugador-card"
+                    type="button"
+                    key={c.id}
+                    onClick={() => setVista({ t: 'cuota', cuota: c })}
+                  >
+                    <div className="jugador-datos">
+                      <div className="jugador-nombre">
+                        {c.concepto}
+                        {c.monto != null && <span className="tag tag--am">${c.monto}</span>}
+                      </div>
+                      <div className="jugador-sub">
+                        Vence {c.fecha_vencimiento} · Pagaron {conteo[c.id] ?? 0}/{totalJug}
+                        <span className={`estado-pago estado-pago--${est}`}>{ESTADO_PAGO_LABEL[est]}</span>
+                      </div>
+                    </div>
+                    <span className="chevron">›</span>
+                  </button>
+                )
+              })}
+            </div>
+          </>
+        )}
       </main>
     </div>
   )

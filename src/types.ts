@@ -219,3 +219,10 @@ export function hoyLocal(): string {
   const dd = String(d.getDate()).padStart(2, '0')
   return `${d.getFullYear()}-${mm}-${dd}`
 }
+
+export interface Gasto {
+  id: string
+  concepto: string
+  monto: number
+  fecha: string
+}

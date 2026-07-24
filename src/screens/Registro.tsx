@@ -16,6 +16,8 @@ export function Registro({ irALogin }: { irALogin: () => void }) {
   const [telefono, setTelefono] = useState('')
   const [fechaNac, setFechaNac] = useState('')
   const [talle, setTalle] = useState('')
+  const [peso, setPeso] = useState('')
+  const [altura, setAltura] = useState('')
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [selfie, setSelfie] = useState<File | null>(null)
@@ -67,6 +69,8 @@ export function Registro({ irALogin }: { irALogin: () => void }) {
         numero_camiseta: numero.trim(),
         fecha_nacimiento: fechaNac,
         talle,
+        peso: peso.trim(),
+        altura: altura.trim(),
         email: email.trim(),
         password,
       },
@@ -214,6 +218,27 @@ export function Registro({ irALogin }: { irALogin: () => void }) {
             inputMode="tel"
           />
         </label>
+
+        <div className="fila-2">
+          <label className="campo">
+            <span>Peso (kg)</span>
+            <input
+              type="number"
+              inputMode="decimal"
+              value={peso}
+              onChange={(e) => setPeso(e.target.value)}
+            />
+          </label>
+          <label className="campo">
+            <span>Altura (cm)</span>
+            <input
+              type="number"
+              inputMode="decimal"
+              value={altura}
+              onChange={(e) => setAltura(e.target.value)}
+            />
+          </label>
+        </div>
         <label className="campo">
           <span>Fecha de nacimiento</span>
           <input

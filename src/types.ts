@@ -12,6 +12,8 @@ export interface Jugador {
   numero_camiseta: number | null
   pie_habil: string | null
   telefono: string | null
+  peso: number | null
+  altura: number | null
   foto_url: string | null
 }
 

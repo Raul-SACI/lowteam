@@ -22,6 +22,8 @@ export function JugadorForm({ jugador, onListo, onCancelar }: Props) {
   const [fechaNac, setFechaNac] = useState(jugador?.fecha_nacimiento ?? '')
   const [talle, setTalle] = useState(jugador?.talle ?? '')
   const [telefono, setTelefono] = useState(jugador?.telefono ?? '')
+  const [peso, setPeso] = useState(jugador?.peso != null ? String(jugador.peso) : '')
+  const [altura, setAltura] = useState(jugador?.altura != null ? String(jugador.altura) : '')
   const [archivo, setArchivo] = useState<File | null>(null)
   const [preview, setPreview] = useState<string | null>(jugador?.foto_url ?? null)
 
@@ -51,6 +53,8 @@ export function JugadorForm({ jugador, onListo, onCancelar }: Props) {
         fecha_nacimiento: fechaNac || null,
         talle: talle || null,
         telefono: telefono.trim() || null,
+        peso: peso.trim() ? Number(peso) : null,
+        altura: altura.trim() ? Number(altura) : null,
       }
 
       let id = jugador?.id
@@ -224,6 +228,27 @@ export function JugadorForm({ jugador, onListo, onCancelar }: Props) {
               inputMode="tel"
             />
           </label>
+
+          <div className="fila-2">
+            <label className="campo">
+              <span>Peso (kg)</span>
+              <input
+                type="number"
+                inputMode="decimal"
+                value={peso}
+                onChange={(e) => setPeso(e.target.value)}
+              />
+            </label>
+            <label className="campo">
+              <span>Altura (cm)</span>
+              <input
+                type="number"
+                inputMode="decimal"
+                value={altura}
+                onChange={(e) => setAltura(e.target.value)}
+              />
+            </label>
+          </div>
 
           {error && <div className="error">{error}</div>}
 

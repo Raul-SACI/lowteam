@@ -68,6 +68,8 @@ export function ResumenPlantel({
       'Fecha nac.': j.fecha_nacimiento ?? '',
       Edad: edadDesde(j.fecha_nacimiento) ?? '',
       Talle: j.talle ?? '',
+      'Peso (kg)': j.peso ?? '',
+      'Altura (cm)': j.altura ?? '',
       Teléfono: j.telefono ?? '',
     }))
     const ws = XLSX.utils.json_to_sheet(rows)

@@ -21,6 +21,8 @@ interface DatosRegistro {
   numero_camiseta: string
   fecha_nacimiento: string
   talle: string
+  peso: string
+  altura: string
   email: string
   password: string
 }
@@ -114,6 +116,8 @@ export function AuthProvider({ children }: { children: ReactNode }) {
           numero_camiseta: datos.numero_camiseta,
           fecha_nacimiento: datos.fecha_nacimiento,
           talle: datos.talle,
+          peso: datos.peso,
+          altura: datos.altura,
         },
       },
     })

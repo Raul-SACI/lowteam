@@ -450,3 +450,14 @@
   margin: 0 0 10px;
   font-size: 14px;
 }
+
+.input-error {
+  border-color: #dc2626 !important;
+  background: #fff7f7;
+}
+
+.aviso-error {
+  color: #b91c1c;
+  font-size: 13px;
+  margin-top: -6px;
+}

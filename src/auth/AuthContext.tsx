@@ -14,6 +14,10 @@ interface DatosRegistro {
   apellido: string
   dni: string
   posicion_preferida: string
+  posicion_secundaria: string
+  pie_habil: string
+  telefono: string
+  numero_camiseta: string
   fecha_nacimiento: string
   talle: string
   email: string
@@ -25,7 +29,7 @@ interface AuthContextValue {
   perfil: Perfil | null
   cargando: boolean
   iniciarSesion: (email: string, password: string) => Promise<string | null>
-  registrar: (datos: DatosRegistro) => Promise<string | null>
+  registrar: (datos: DatosRegistro, selfie?: File | null) => Promise<string | null>
   cerrarSesion: () => Promise<void>
 }
 
@@ -87,8 +91,8 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     return error ? error.message : null
   }
 
-  async function registrar(datos: DatosRegistro) {
-    const { error } = await supabase.auth.signUp({
+  async function registrar(datos: DatosRegistro, selfie?: File | null) {
+    const { data, error } = await supabase.auth.signUp({
       email: datos.email,
       password: datos.password,
       options: {
@@ -97,12 +101,45 @@ export function AuthProvider({ children }: { children: ReactNode }) {
           apellido: datos.apellido,
           dni: datos.dni,
           posicion_preferida: datos.posicion_preferida,
+          posicion_secundaria: datos.posicion_secundaria,
+          pie_habil: datos.pie_habil,
+          telefono: datos.telefono,
+          numero_camiseta: datos.numero_camiseta,
           fecha_nacimiento: datos.fecha_nacimiento,
           talle: datos.talle,
         },
       },
     })
-    return error ? error.message : null
+    if (error) return error.message
+
+    // Selfie (best-effort): si falla, NO bloqueamos el alta.
+    const userId = data.user?.id
+    if (selfie && data.session && userId) {
+      try {
+        const { data: p } = await supabase
+          .from('perfiles')
+          .select('jugador_id')
+          .eq('id', userId)
+          .single()
+        const jid = p?.jugador_id
+        if (jid) {
+          const path = `jugadores/${jid}`
+          const { error: upErr } = await supabase.storage
+            .from('fotos')
+            .upload(path, selfie, { upsert: true, contentType: selfie.type })
+          if (!upErr) {
+            const { data: urlData } = supabase.storage.from('fotos').getPublicUrl(path)
+            await supabase.rpc('guardar_mi_foto', {
+              url: `${urlData.publicUrl}?t=${Date.now()}`,
+            })
+          }
+        }
+      } catch (e) {
+        console.error('No se pudo guardar la selfie:', e)
+      }
+    }
+
+    return null
   }
 
   async function cerrarSesion() {

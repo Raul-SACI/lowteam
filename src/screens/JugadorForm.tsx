@@ -273,5 +273,7 @@ export function JugadorForm({ jugador, onListo, onCancelar }: Props) {
 function traducir(msg: string): string {
   if (msg.toLowerCase().includes('row-level security'))
     return 'No tenés permiso para esta acción (solo el staff puede editar).'
+  if (msg.toLowerCase().includes('duplicate') || msg.includes('jugadores_numero_unico'))
+    return 'Ese número de camiseta ya está ocupado por otro jugador.'
   return msg
 }

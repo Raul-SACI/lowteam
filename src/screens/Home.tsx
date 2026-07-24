@@ -2,7 +2,9 @@ import { useAuth } from '../auth/AuthContext'
 import { ROL_LABEL } from '../types'
 import { Logo } from '../components/Logo'
 
-export function Home() {
+type Pantalla = 'home' | 'plantel'
+
+export function Home({ irA }: { irA: (p: Pantalla) => void }) {
   const { perfil, session, cerrarSesion } = useAuth()
 
   const jugador = perfil?.jugador
@@ -25,13 +27,16 @@ export function Home() {
           <p className="saludo">Hola{nombre ? `, ${nombre}` : ''} 👋</p>
           <p className="nota">
             {esStaff
-              ? 'Tenés acceso de gestión. Las secciones para cargar plantel, entrenamientos, partidos y estadísticas se irán habilitando en los próximos pasos.'
-              : 'Tenés acceso de consulta. Vas a poder ver el equipo, tus estadísticas y la planificación de entrenamientos a medida que se habiliten las secciones.'}
+              ? 'Tenés acceso de gestión. Empezá por el Plantel; el resto de las secciones se van habilitando.'
+              : 'Tenés acceso de consulta. Ya podés ver el Plantel; el resto se habilita pronto.'}
           </p>
         </div>
 
         <nav className="menu">
-          <div className="menu-item menu-item--proximo">Plantel · próximamente</div>
+          <button className="menu-item" type="button" onClick={() => irA('plantel')}>
+            Plantel
+            <span className="chevron">›</span>
+          </button>
           <div className="menu-item menu-item--proximo">Entrenamientos · próximamente</div>
           <div className="menu-item menu-item--proximo">Partidos · próximamente</div>
           <div className="menu-item menu-item--proximo">Estadísticas · próximamente</div>
@@ -42,7 +47,7 @@ export function Home() {
         </button>
       </main>
 
-      <footer className="footer">Low Team · v0.2</footer>
+      <footer className="footer">Low Team · v0.3</footer>
     </div>
   )
 }

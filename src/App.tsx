@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { useAuth } from './auth/AuthContext'
+import { ROL_LABEL } from './types'
 import { Login } from './screens/Login'
 import { Registro } from './screens/Registro'
 import { Home } from './screens/Home'
@@ -11,10 +12,17 @@ import { Usuarios } from './screens/Usuarios'
 import { Pagos } from './screens/Pagos'
 import './App.css'
 
-type Pantalla = 'home' | 'plantel' | 'partidos' | 'estadisticas' | 'entrenamientos' | 'usuarios' | 'pagos'
+type Pantalla =
+  | 'home'
+  | 'plantel'
+  | 'partidos'
+  | 'estadisticas'
+  | 'entrenamientos'
+  | 'usuarios'
+  | 'pagos'
 
 function App() {
-  const { session, cargando } = useAuth()
+  const { session, cargando, vistaComo, setVistaComo } = useAuth()
   const [vista, setVista] = useState<'login' | 'registro'>('login')
   const [pantalla, setPantalla] = useState<Pantalla>('home')
 
@@ -34,25 +42,37 @@ function App() {
     )
   }
 
-  if (pantalla === 'plantel') {
-    return <Plantel volver={() => setPantalla('home')} />
-  }
-  if (pantalla === 'partidos') {
-    return <Partidos volver={() => setPantalla('home')} />
-  }
-  if (pantalla === 'estadisticas') {
-    return <Estadisticas volver={() => setPantalla('home')} />
-  }
-  if (pantalla === 'entrenamientos') {
-    return <Entrenamientos volver={() => setPantalla('home')} />
-  }
-  if (pantalla === 'usuarios') {
-    return <Usuarios volver={() => setPantalla('home')} />
-  }
-  if (pantalla === 'pagos') {
-    return <Pagos volver={() => setPantalla('home')} />
-  }
-  return <Home irA={setPantalla} />
+  const volverHome = () => setPantalla('home')
+  let contenido
+  if (pantalla === 'plantel') contenido = <Plantel volver={volverHome} />
+  else if (pantalla === 'partidos') contenido = <Partidos volver={volverHome} />
+  else if (pantalla === 'estadisticas') contenido = <Estadisticas volver={volverHome} />
+  else if (pantalla === 'entrenamientos') contenido = <Entrenamientos volver={volverHome} />
+  else if (pantalla === 'usuarios') contenido = <Usuarios volver={volverHome} />
+  else if (pantalla === 'pagos') contenido = <Pagos volver={volverHome} />
+  else contenido = <Home irA={setPantalla} />
+
+  return (
+    <>
+      {vistaComo && (
+        <div className="banner-preview">
+          <span>
+            Viendo como <strong>{ROL_LABEL[vistaComo]}</strong>
+          </span>
+          <button
+            type="button"
+            onClick={() => {
+              setVistaComo(null)
+              setPantalla('home')
+            }}
+          >
+            Volver a Administrador
+          </button>
+        </div>
+      )}
+      {contenido}
+    </>
+  )
 }
 
 export default App

@@ -7,9 +7,9 @@ import { edadDesde } from '../types'
 import { JugadorForm } from './JugadorForm'
 
 export function Plantel({ volver }: { volver: () => void }) {
-  const { perfil } = useAuth()
+  const { rolEfectivo } = useAuth()
   const esStaff =
-    puedeEditarDeportivo(perfil?.rol)
+    puedeEditarDeportivo(rolEfectivo)
 
   const [jugadores, setJugadores] = useState<Jugador[]>([])
   const [cargando, setCargando] = useState(true)

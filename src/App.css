@@ -939,3 +939,47 @@
 .cal-detalle {
   margin-top: 12px;
 }
+
+/* ===== Vista previa de rol ===== */
+.ver-como {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 10px;
+}
+
+.ver-como .btn {
+  flex: 1;
+  min-width: 120px;
+  margin-top: 0;
+  padding: 10px;
+  font-size: 14px;
+}
+
+.banner-preview {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 10px calc(env(safe-area-inset-right) + 14px) 10px calc(env(safe-area-inset-left) + 14px);
+  background: #fff4e5;
+  color: #b45309;
+  font-size: 13px;
+  font-weight: 600;
+  border-bottom: 1px solid #f5d9a8;
+}
+
+.banner-preview button {
+  border: none;
+  background: #b45309;
+  color: #fff;
+  font-weight: 700;
+  font-size: 12px;
+  padding: 7px 12px;
+  border-radius: 8px;
+  cursor: pointer;
+  white-space: nowrap;
+}

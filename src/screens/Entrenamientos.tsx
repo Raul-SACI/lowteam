@@ -17,8 +17,8 @@ type Vista =
   | { t: 'biblioteca' }
 
 export function Entrenamientos({ volver }: { volver: () => void }) {
-  const { perfil } = useAuth()
-  const esStaff = puedeEditarDeportivo(perfil?.rol)
+  const { rolEfectivo } = useAuth()
+  const esStaff = puedeEditarDeportivo(rolEfectivo)
 
   const [ents, setEnts] = useState<Evento[]>([])
   const [cargando, setCargando] = useState(true)

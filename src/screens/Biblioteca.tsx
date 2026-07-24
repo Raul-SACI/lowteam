@@ -5,8 +5,8 @@ import type { Ejercicio } from '../types'
 import { puedeEditarDeportivo } from '../types'
 
 export function Biblioteca({ volver }: { volver: () => void }) {
-  const { perfil } = useAuth()
-  const esStaff = puedeEditarDeportivo(perfil?.rol)
+  const { rolEfectivo } = useAuth()
+  const esStaff = puedeEditarDeportivo(rolEfectivo)
 
   const [ejercicios, setEjercicios] = useState<Ejercicio[]>([])
   const [cargando, setCargando] = useState(true)

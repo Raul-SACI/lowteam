@@ -7,7 +7,8 @@ import {
 } from 'react'
 import type { Session } from '@supabase/supabase-js'
 import { supabase } from '../lib/supabase'
-import type { Perfil } from '../types'
+import type { Perfil, Rol } from '../types'
+import { esAdmin } from '../types'
 
 interface DatosRegistro {
   nombre: string
@@ -31,6 +32,11 @@ interface AuthContextValue {
   iniciarSesion: (email: string, password: string) => Promise<string | null>
   registrar: (datos: DatosRegistro, selfie?: File | null) => Promise<string | null>
   cerrarSesion: () => Promise<void>
+  // Vista previa de rol (solo Administrador)
+  vistaComo: Rol | null
+  setVistaComo: (rol: Rol | null) => void
+  rolEfectivo: Rol | null | undefined
+  esAdminReal: boolean
 }
 
 const AuthContext = createContext<AuthContextValue | undefined>(undefined)
@@ -39,6 +45,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   const [session, setSession] = useState<Session | null>(null)
   const [perfil, setPerfil] = useState<Perfil | null>(null)
   const [cargando, setCargando] = useState(true)
+  const [vistaComo, setVistaComo] = useState<Rol | null>(null)
 
   async function cargarPerfil(userId: string) {
     const { data, error } = await supabase
@@ -143,12 +150,27 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   }
 
   async function cerrarSesion() {
+    setVistaComo(null)
     await supabase.auth.signOut()
   }
 
+  const esAdminReal = esAdmin(perfil?.rol)
+  const rolEfectivo = esAdminReal ? vistaComo ?? perfil?.rol : perfil?.rol
+
   return (
     <AuthContext.Provider
-      value={{ session, perfil, cargando, iniciarSesion, registrar, cerrarSesion }}
+      value={{
+        session,
+        perfil,
+        cargando,
+        iniciarSesion,
+        registrar,
+        cerrarSesion,
+        vistaComo: esAdminReal ? vistaComo : null,
+        setVistaComo,
+        rolEfectivo,
+        esAdminReal,
+      }}
     >
       {children}
     </AuthContext.Provider>

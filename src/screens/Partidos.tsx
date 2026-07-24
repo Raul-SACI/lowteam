@@ -12,8 +12,8 @@ type Vista =
   | { t: 'stats'; partido: Evento }
 
 export function Partidos({ volver }: { volver: () => void }) {
-  const { perfil } = useAuth()
-  const esStaff = puedeEditarDeportivo(perfil?.rol)
+  const { rolEfectivo } = useAuth()
+  const esStaff = puedeEditarDeportivo(rolEfectivo)
 
   const [partidos, setPartidos] = useState<Evento[]>([])
   const [cargando, setCargando] = useState(true)

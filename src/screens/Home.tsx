@@ -1,26 +1,36 @@
 import { useAuth } from '../auth/AuthContext'
+import type { Rol } from '../types'
 import { ROL_LABEL, puedeEditarDeportivo, esAdmin } from '../types'
 import { Logo } from '../components/Logo'
 
-type Pantalla = 'home' | 'plantel' | 'partidos' | 'estadisticas' | 'entrenamientos' | 'usuarios' | 'pagos'
+type Pantalla =
+  | 'home'
+  | 'plantel'
+  | 'partidos'
+  | 'estadisticas'
+  | 'entrenamientos'
+  | 'usuarios'
+  | 'pagos'
+
+const ROLES_PREVIEW: Rol[] = ['jugador', 'administracion', 'cuerpo_tecnico']
 
 export function Home({ irA }: { irA: (p: Pantalla) => void }) {
-  const { perfil, session, cerrarSesion } = useAuth()
+  const { perfil, session, cerrarSesion, rolEfectivo, esAdminReal, vistaComo, setVistaComo } =
+    useAuth()
 
   const jugador = perfil?.jugador
   const nombre = jugador
     ? `${jugador.nombre} ${jugador.apellido}`.trim()
     : session?.user.email ?? ''
-  const rol = perfil?.rol
-  const esStaff = puedeEditarDeportivo(rol)
-  const admin = esAdmin(rol)
+  const esStaff = puedeEditarDeportivo(rolEfectivo)
+  const admin = esAdmin(rolEfectivo)
 
   return (
     <div className="app">
       <header className="header">
         <Logo />
         <h1>Low Team</h1>
-        {rol && <p className="subtitulo">{ROL_LABEL[rol]}</p>}
+        {rolEfectivo && <p className="subtitulo">{ROL_LABEL[rolEfectivo]}</p>}
       </header>
 
       <main className="main">
@@ -32,6 +42,25 @@ export function Home({ irA }: { irA: (p: Pantalla) => void }) {
               : 'Tenés acceso de consulta. Ya podés ver el Plantel; el resto se habilita pronto.'}
           </p>
         </div>
+
+        {esAdminReal && !vistaComo && (
+          <div className="tarjeta">
+            <p className="saludo">Ver la app como…</p>
+            <p className="nota">Vista previa de lo que ve cada rol (podés volver cuando quieras).</p>
+            <div className="ver-como">
+              {ROLES_PREVIEW.map((r) => (
+                <button
+                  key={r}
+                  type="button"
+                  className="btn btn--secundario"
+                  onClick={() => setVistaComo(r)}
+                >
+                  {ROL_LABEL[r]}
+                </button>
+              ))}
+            </div>
+          </div>
+        )}
 
         <nav className="menu">
           <button className="menu-item" type="button" onClick={() => irA('plantel')}>
@@ -67,7 +96,7 @@ export function Home({ irA }: { irA: (p: Pantalla) => void }) {
         </button>
       </main>
 
-      <footer className="footer">Low Team · v0.3</footer>
+      <footer className="footer">Low Team · v0.6</footer>
     </div>
   )
 }

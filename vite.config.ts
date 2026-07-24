@@ -14,7 +14,7 @@ export default defineConfig({
         name: 'Low Team',
         short_name: 'Low Team',
         description: 'Gestion del equipo de futbol',
-        theme_color: '#0b6e4f',
+        theme_color: '#1e3a8f',
         background_color: '#ffffff',
         display: 'standalone',
         orientation: 'portrait',

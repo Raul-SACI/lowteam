@@ -16,7 +16,7 @@
   height: 72px;
   margin: 0 auto 12px;
   border-radius: 20px;
-  background: var(--verde);
+  background: var(--azul);
   color: #fff;
   font-weight: 800;
   font-size: 30px;
@@ -63,8 +63,8 @@
 }
 
 .estado--ok {
-  background: #e6f6ee;
-  color: #0b6e4f;
+  background: #e8edfb;
+  color: #1e3a8f;
 }
 
 .estado--error {
@@ -128,7 +128,7 @@
 .campo input:focus,
 .campo select:focus {
   outline: none;
-  border-color: var(--verde);
+  border-color: var(--azul);
 }
 
 .separador {
@@ -145,7 +145,7 @@
   padding: 14px;
   border: none;
   border-radius: 12px;
-  background: var(--verde);
+  background: var(--azul);
   color: #fff;
   font-size: 16px;
   font-weight: 700;
@@ -153,7 +153,7 @@
 }
 
 .btn:active {
-  background: var(--verde-oscuro);
+  background: var(--azul-oscuro);
 }
 
 .btn:disabled {
@@ -183,7 +183,7 @@
 .link {
   background: none;
   border: none;
-  color: var(--verde);
+  color: var(--azul);
   font-weight: 700;
   font-size: 14px;
   cursor: pointer;
@@ -296,7 +296,7 @@
   justify-self: start;
   background: none;
   border: none;
-  color: var(--verde);
+  color: var(--azul);
   font-weight: 700;
   font-size: 15px;
   cursor: pointer;
@@ -334,7 +334,7 @@
   height: 48px;
   border-radius: 50%;
   overflow: hidden;
-  background: var(--verde);
+  background: var(--azul);
   color: #fff;
   display: flex;
   align-items: center;
@@ -370,7 +370,7 @@
   height: 24px;
   padding: 0 4px;
   border-radius: 6px;
-  background: var(--verde);
+  background: var(--azul);
   color: #fff;
   font-size: 13px;
 }
@@ -490,7 +490,7 @@
 .partido-resultado {
   font-weight: 800;
   font-size: 20px;
-  color: var(--verde);
+  color: var(--azul);
   white-space: nowrap;
 }
 
@@ -516,7 +516,7 @@
   vertical-align: middle;
 }
 
-.tag--of { background: #e6f6ee; color: #0b6e4f; }
+.tag--of { background: #e8edfb; color: #1e3a8f; }
 .tag--am { background: #eef2f7; color: #64748b; }
 
 /* ===== Carga de estadísticas ===== */
@@ -670,7 +670,7 @@
 
 .segmento .seg-activo {
   background: #fff;
-  color: var(--verde);
+  color: var(--azul);
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
 }
 
@@ -681,7 +681,7 @@
   margin-right: 6px;
   padding: 0 4px;
   border-radius: 5px;
-  background: var(--verde);
+  background: var(--azul);
   color: #fff;
   font-size: 11px;
   font-weight: 700;
@@ -689,7 +689,7 @@
 
 .celda-destacada {
   font-weight: 800;
-  color: var(--verde);
+  color: var(--azul);
 }
 
 /* ===== Usuarios ===== */
@@ -708,8 +708,8 @@
   margin-left: 8px;
   padding: 1px 8px;
   border-radius: 999px;
-  background: #e6f6ee;
-  color: #0b6e4f;
+  background: #e8edfb;
+  color: #1e3a8f;
   font-size: 11px;
   font-weight: 700;
 }
@@ -847,7 +847,7 @@
   vertical-align: middle;
 }
 
-.estado-pago--pagada { background: #e6f6ee; color: #0b6e4f; }
+.estado-pago--pagada { background: #e8edfb; color: #1e3a8f; }
 .estado-pago--atrasada { background: #fdecec; color: #b91c1c; }
 .estado-pago--proxima { background: #fff4e5; color: #b45309; }
 .estado-pago--pendiente { background: #eef2f7; color: #64748b; }
@@ -907,17 +907,17 @@
 }
 
 .cal-celda--con {
-  background: #e6f6ee;
-  color: var(--verde-oscuro);
+  background: #e8edfb;
+  color: var(--azul-oscuro);
 }
 
 .cal-celda--hoy {
-  outline: 2px solid var(--verde);
+  outline: 2px solid var(--azul);
   outline-offset: -2px;
 }
 
 .cal-celda--sel {
-  background: var(--verde);
+  background: var(--azul);
   color: #fff;
 }
 
@@ -929,7 +929,7 @@
   width: 5px;
   height: 5px;
   border-radius: 50%;
-  background: var(--verde);
+  background: var(--azul);
 }
 
 .cal-celda--sel .cal-punto {

@@ -5,6 +5,7 @@ import { puedeEditarDeportivo } from '../types'
 import type { Jugador } from '../types'
 import { edadDesde } from '../types'
 import { JugadorForm } from './JugadorForm'
+import { ResumenPlantel } from './ResumenPlantel'
 
 export function Plantel({ volver }: { volver: () => void }) {
   const { rolEfectivo } = useAuth()
@@ -15,6 +16,7 @@ export function Plantel({ volver }: { volver: () => void }) {
   const [cargando, setCargando] = useState(true)
   const [error, setError] = useState<string | null>(null)
   const [editando, setEditando] = useState<Jugador | 'nuevo' | null>(null)
+  const [modo, setModo] = useState<'jugadores' | 'resumen'>('jugadores')
 
   async function cargar() {
     setCargando(true)
@@ -58,29 +60,50 @@ export function Plantel({ volver }: { volver: () => void }) {
       </header>
 
       <main className="main">
-        {esStaff && (
+        <div className="segmento">
           <button
-            className="btn"
+            className={modo === 'jugadores' ? 'seg-activo' : ''}
             type="button"
-            onClick={() => setEditando('nuevo')}
+            onClick={() => setModo('jugadores')}
           >
-            + Agregar jugador
+            Jugadores
           </button>
-        )}
+          <button
+            className={modo === 'resumen' ? 'seg-activo' : ''}
+            type="button"
+            onClick={() => setModo('resumen')}
+          >
+            Resumen
+          </button>
+        </div>
 
         {cargando && (
           <div className="estado estado--probando">Cargando plantel...</div>
         )}
         {error && <div className="error">{error}</div>}
 
-        {!cargando && !error && jugadores.length === 0 && (
-          <p className="nota">
-            Todavía no hay jugadores cargados.
-            {esStaff ? ' Tocá "Agregar jugador" para empezar.' : ''}
-          </p>
-        )}
+        {modo === 'resumen' ? (
+          !cargando && <ResumenPlantel jugadores={jugadores} rolEfectivo={rolEfectivo} />
+        ) : (
+          <>
+            {esStaff && (
+              <button
+                className="btn"
+                type="button"
+                onClick={() => setEditando('nuevo')}
+              >
+                + Agregar jugador
+              </button>
+            )}
 
-        <div className="lista-jugadores">
+            {!cargando && !error && jugadores.length === 0 && (
+              <p className="nota">
+                Todavía no hay jugadores cargados.
+                {esStaff ? ' Tocá "Agregar jugador" para empezar.' : ''}
+              </p>
+            )}
+
+            <div className="lista-jugadores">
           {jugadores.map((j) => {
             const edad = edadDesde(j.fecha_nacimiento)
             const posiciones = [j.posicion_preferida, j.posicion_secundaria]
@@ -119,7 +142,9 @@ export function Plantel({ volver }: { volver: () => void }) {
               </button>
             )
           })}
-        </div>
+            </div>
+          </>
+        )}
       </main>
     </div>
   )

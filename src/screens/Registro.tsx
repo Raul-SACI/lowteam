@@ -85,8 +85,8 @@ export function Registro({ irALogin }: { irALogin: () => void }) {
           />
         </label>
         <label className="campo">
-          <span>Posición preferida</span>
-          <select value={posicion} onChange={(e) => setPosicion(e.target.value)} required>
+          <span>Posición preferida <em className="opcional">(dejala vacía si no sos jugador)</em></span>
+          <select value={posicion} onChange={(e) => setPosicion(e.target.value)}>
             <option value="">Elegir...</option>
             {POSICIONES.map((p) => (
               <option key={p} value={p}>

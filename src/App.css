@@ -222,3 +222,10 @@
   color: var(--texto-suave);
   font-weight: 500;
 }
+
+.opcional {
+  font-weight: 400;
+  font-style: normal;
+  color: #9aa4b2;
+  font-size: 12px;
+}

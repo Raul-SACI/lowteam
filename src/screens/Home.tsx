@@ -2,6 +2,7 @@ import { useAuth } from '../auth/AuthContext'
 import type { Rol } from '../types'
 import { ROL_LABEL, puedeEditarDeportivo, esAdmin } from '../types'
 import { Logo } from '../components/Logo'
+import { ProximoEvento } from './ProximoEvento'
 
 type Pantalla =
   | 'home'
@@ -43,6 +44,8 @@ export function Home({ irA }: { irA: (p: Pantalla) => void }) {
               : 'Tenés acceso de consulta. Ya podés ver el Plantel; el resto se habilita pronto.'}
           </p>
         </div>
+
+        <ProximoEvento />
 
         {esAdminReal && !vistaComo && (
           <div className="tarjeta">

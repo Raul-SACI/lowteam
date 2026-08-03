@@ -1238,3 +1238,90 @@
   height: 130px;
   font-size: 44px;
 }
+
+/* ===== Proximo evento ===== */
+.prox-evento {
+  background: linear-gradient(160deg, var(--azul), var(--azul-oscuro));
+  color: #fff;
+  border-radius: 16px;
+  padding: 16px;
+}
+
+.prox-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 8px;
+}
+
+.prox-tag {
+  font-size: 12px;
+  font-weight: 700;
+  padding: 2px 10px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.2);
+}
+
+.prox-cuando {
+  font-size: 13px;
+  font-weight: 700;
+  opacity: 0.95;
+}
+
+.prox-titulo {
+  font-size: 20px;
+  font-weight: 800;
+}
+
+.prox-fecha {
+  font-size: 14px;
+  opacity: 0.9;
+  margin-top: 2px;
+}
+
+.prox-nota {
+  font-size: 13px;
+  opacity: 0.85;
+  margin-top: 4px;
+}
+
+.prox-pregunta {
+  margin-top: 12px;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.prox-botones {
+  display: flex;
+  gap: 10px;
+  margin-top: 8px;
+}
+
+.prox-btn {
+  flex: 1;
+  padding: 12px;
+  border: 2px solid rgba(255, 255, 255, 0.35);
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.12);
+  color: #fff;
+  font-size: 15px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.prox-btn--si-on {
+  background: #16a34a;
+  border-color: #16a34a;
+}
+
+.prox-btn--no-on {
+  background: #dc2626;
+  border-color: #dc2626;
+}
+
+.prox-conteo {
+  margin-top: 12px;
+  font-size: 13px;
+  opacity: 0.9;
+  text-align: center;
+}

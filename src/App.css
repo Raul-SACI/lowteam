@@ -1325,3 +1325,48 @@
   opacity: 0.9;
   text-align: center;
 }
+
+/* ===== Proximo evento: listas ===== */
+.prox-verlista {
+  width: 100%;
+  margin-top: 10px;
+  padding: 9px;
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.12);
+  color: #fff;
+  font-weight: 700;
+  font-size: 13px;
+  cursor: pointer;
+}
+
+.prox-listas {
+  margin-top: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.prox-grupo {
+  background: rgba(255, 255, 255, 0.12);
+  border-radius: 10px;
+  padding: 8px 12px;
+}
+
+.prox-grupo-tit {
+  font-size: 13px;
+  font-weight: 700;
+  margin-bottom: 4px;
+}
+
+.prox-grupo-vacio {
+  font-size: 13px;
+  opacity: 0.7;
+}
+
+.prox-grupo-lista {
+  margin: 0;
+  padding-left: 18px;
+  font-size: 13.5px;
+  line-height: 1.5;
+}
